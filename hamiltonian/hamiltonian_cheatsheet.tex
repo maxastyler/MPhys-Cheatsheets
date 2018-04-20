@@ -2,6 +2,7 @@
 \usepackage{multicol}
 \usepackage{calc}
 \usepackage{ifthen}
+\usepackage{amsmath}
 \usepackage[landscape]{geometry}
 \usepackage{hyperref}
 
@@ -117,9 +118,75 @@ And we get the Euler-Lagrange equations:
 	\frac{\partial L}{\partial \mathbf{q}}=\frac{d}{dt}\frac{\partial L}{\partial \mathbf{\dot q}}
 \end{equation}
 
-The Euler-Lagrange equations are invariant under a change of the Lagrangian:
+The Euler-Lagrange equations are invariant under a change of the Lagrangian by a total time derivative:
 \begin{equation}
+	L \rightarrow L' = L + \frac{dF}{dt}
+\end{equation}
+By considering a point transformation to new coordinates $Q, \dot Q$: $Q(q, t), \dot Q(q, \dot q, t) $:
+\begin{equation}
+	\frac{\partial \dot q}{\partial \dot Q} = \frac{\partial q}{\partial Q}
+\end{equation}
+Cancellation of dots.
+\section{Generalised Momenta}
+The Legendre transform conjugate to the velocities $\mathbf{\dot q}$ are the generalised momenta $\mathbf{p}$:
+\begin{equation}
+	\frac{\partial L}{\partial \mathbf{\dot q}} = \mathbf {p}
+\end{equation}
+If the Lagrangian is independent of a coordinate $q$, then this is called a cyclic coordinate, and the generalised momentum is conserved:
+\begin{equation}
+	\frac{\partial L}{\partial q} = \frac{d}{dt}\frac{\partial L}{\partial \dot q} = \dot p = 0
+\end{equation}
+\section{Noether's Theorem}
+If the Euler-Lagrange equations are invariant under some infinitesimal coordinate transform $\mathbf {q} \rightarrow \mathbf {q} + \epsilon \mathbf {w}(s_1, \mathellipsis, s_n, \mathbf{q}, t)$, then this transform changes the Lagrangian by a total time derivative. We can taylor expand in the infinitesimal $\epsilon$ to give:
+\begin{equation}
+	L - \epsilon \frac{dG}{dt} = L + \epsilon\left(\frac{\partial L}{\partial \mathbf{q}}\cdot\mathbf{w} + \frac{\partial L}{\partial \mathbf{\dot q}}\cdot\mathbf{\dot w}\right) = L + \epsilon\frac{d}{dt}\left(\frac{\partial L}{\partial \mathbf{\dot q}}\cdot\mathbf{w}\right)
+\end{equation}
+Which implies:
+\begin{equation}
+	I = G + \frac{\partial L}{\partial \mathbf{\dot q}}\cdot \mathbf{w} = \mathrm{constant}
+\end{equation}
+\section{The Hamiltonian}
+The Hamiltonian is the Legendre transform of the Lagrangian with respect to the velocity.
+\begin{equation}
+	H(\mathbf{q}, \mathbf{p}, t) = \frac{\partial L}{\partial \mathbf{\dot q}}\cdot \mathbf{\dot q} - L
+\end{equation}
 
+We can get Hamilton's equations by considering the differential of H:
+\begin{equation}
+	dH = \frac{\partial H}{\partial \mathbf{q}}\cdot d\mathbf{q} + \frac{\partial H}{\partial \mathbf{p}}\cdot d\mathbf{p} + \frac{\partial H}{\partial t}
+\end{equation}
+\begin{equation}
+	dH = \mathbf{\dot q} \cdot d\mathbf{p} - \mathbf{\dot p} \cdot d\mathbf{q} - \frac{\partial L}{\partial t}
+\end{equation}
+Equating the coefficients of the differentials, we get Hamilton's equations of motion:
+\begin{equation}
+	\mathbf v =
+	\frac{d}{dt}
+	\begin{pmatrix}
+		\mathbf{q} \\
+		\mathbf{p}
+		\end{pmatrix} = 
+		\begin{pmatrix}
+			\nabla_\mathbf{p}H \\ 
+		-\nabla_\mathbf{q}H}
+		\end{pmatrix}\mathrm{\ \ \ and\ \ \ } \frac{\partial H}{\partial t} = -\frac{\partial L}{\partial t}
+\end{equation}
+
+Where $\mathbf v$ is the phase space velocity. If the Hamiltonian is time-independent, then the motion in phase space lies along paths of constant energy:
+\begin{equation}
+	\mathbf {v}\cdot \nabla H = \nabla_\mathbf{p}H\cdot\nabla_\mathbf{q} H - \nabla_\mathbf{q}H\cdot\nabla_\mathbf{p} H = 0
+\end{equation}
+\section{Liouville's Theorem}
+
+The ``fluid'' system is incompressible in phase space, and if the Hamiltonian is independent of time then the phase space fluid is constant.
+
+Incompressibility is shown by:
+\begin{equation}
+	\nabla \cdot\mathbf{v} = \nabla_\mathbf{q}\cdot\nabla_\mathbf{p}H - \nabla_\mathbf{p}\cdot\nabla_\mathbf{q} H = 0
+\end{equation}
+The density $\rho$ obeys the equation:
+\begin{equation}
+	\frac{d\rho}{dt} = \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) = 0
 \end{equation}
 \end{document}
 \end{verbatim}
