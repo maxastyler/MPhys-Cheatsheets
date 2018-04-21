@@ -410,7 +410,67 @@ If we have two sets of coordinates: $\eta^i = (q^j, p^k)$ and $\zeta^i = (Q^j, P
 		\mathbf{0} & -\mathbf{I} 
 	\end{pmatrix} = J^{ij}
 \end{equation}
+
 Where the $\mathbf{I}$ are block identity matrices.
+
+We can use generating functions of different combinations of $q, p, Q, P$. These are all related by a Legendre transform:
+
+\begin{align}
+	F_2(\mathbf{q}, \mathbf{P}) &= F_1(\mathbf{q},\mathbf{Q})+\mathbf{Q}\cdot\mathbf{P} \\
+	F_3(\mathbf{p}, \mathbf{Q}) &= F_1(\mathbf{q},\mathbf{Q})-\mathbf{q}\cdot \mathbf{p} \\
+	F_4(\mathbf{p}, \mathbf{P}) &= F_1(\mathbf{q},\mathbf{Q})-\mathbf{q}\cdot\mathbf{p}+\mathbf{Q}\cdot\mathbf{P}
+\end{align}
+Under these generating functions, the equations for the other coordinates are:
+
+\begin{align}
+	F_1(\mathbf{q}, \mathbf{Q}): &&
+	\mathbf{p} &= \frac{\partial F_1}{\partial \mathbf{q}} & 
+	\mathbf{P} &= -\frac{\partial F_1}{\partial \mathbf{Q}} & \\
+	F_2(\mathbf{q}, \mathbf{P}): &&
+	\mathbf{p} &= \frac{\partial F_2}{\partial \mathbf{q}} & 
+	\mathbf{Q} &= \frac{\partial F_2}{\partial \mathbf{P}} & \\
+	F_3(\mathbf{p}, \mathbf{Q}): &&
+	\mathbf{q} &= -\frac{\partial F_3}{\partial \mathbf{p}} & 
+	\mathbf{P} &= -\frac{\partial F_3}{\partial \mathbf{Q}} & \\
+	F_4(\mathbf{p}, \mathbf{P}): &&
+	\mathbf{q} &= -\frac{\partial F_4}{\partial \mathbf{p}} & 
+	\mathbf{Q} &= \frac{\partial F_4}{\partial \mathbf{P}} &
+\end{align}
+
+Under transformations with generating functions of the form $F_1=\mathbf{q}\cdot\mathbf{Q}$ and $F_4=\mathbf{p}\cdot\mathbf{P}$, we can perform an exchange transformation, where the old coordinates become the new moment and vice-versa. With generating functions of the form $F_2=\mathbf{q}\cdot\mathbf{P}$ and $F_3=-\mathbf{p}\cdot\mathbf{Q}$, we get an identity transformation.
+\subsection{Infinitesimal Canonical Transformations}
+Consider canonical transformations close to the indentity:
+\begin{equation}
+	F_2(\mathbf{q}, \mathbf{P}, t) = \mathbf{q}\cdot\mathbf{P} + \epsilon G(\mathbf{q}, \mathbf{P}, t)
+\end{equation}
+$G(\mathbf{q}, \mathbf{P}, t)$ is the generator of the infinitesimal canonical transform.
+Considering the changes in coordinates and momenta under this transformation, we have:
+\begin{align}
+	\delta \mathbf{q} &= \mathbf{Q}-\mathbf{q} &= \epsilon \frac{\partial G(\mathbf{q},\mathbf{P},t)}{\partial \mathbf{P}} &=\epsilon \frac{\partial G(\mathbf{q},\mathbf{p},t)}{\partial \mathbf{p}} + O(\epsilon^2) \\
+	\delta \mathbf{p} &= \mathbf{P}-\mathbf{p} &= -\epsilon \frac{\partial G(\mathbf{q},\mathbf{P},t)}{\partial \mathbf{q}}  &= -\epsilon \frac{\partial G(\mathbf{q},\mathbf{p},t)}{\partial \mathbf{q}} + O(\epsilon^2)
+\end{align}
+If some infinitesimal generator leaves the functional form of the Hamiltonian the same, then $H(\mathbf{Q}, \mathbf{P}, t) - H(\mathbf{q}, \mathbf{p}, t) = \epsilon\frac{\partial G}{\partial t}=-\epsilon\left\{G, H\right\}$, and the infinitesimal generator of the transformation is a constant of motion:
+\begin{equation}
+	\frac{dG}{dt} = \left\{G, H\right\} + \frac{\partial G}{\partial t} = 0
+\end{equation}
+We can iterate the poisson bracket of a variable with an infinitesimal canonical transformation to build up finite motions. Let $\hat Gu=\{G, u\}$, then we can take derivatives of $u$ with:
+\begin{equation}
+	\frac{du}{d\alpha} = -\hat Gu
+\end{equation}
+And can build up the taylor expansion of $u(\alpha)$:
+\begin{equation}
+	u(\alpha) = \sum_{n=0}^{\infty}\frac{(-\alpha)^n}{n!}\hat Gu(\alpha)|_{\alpha=0}= e^{-\alpha\hat G} u(\alpha)|_{\alpha=0}
+\end{equation}
+
+\section{Hamilton-Jacobi Theory}
+Find a canonical transformation, $S(q^i, \alpha_j)$ that takes the coordinates $(q^i, p_j)$ to constant coordinates $(\beta^i, \alpha_j)$. We take the transformed Hamiltonian, $K(\beta^i, \alpha_j)=0$ to give the Hamilton-Jacobi equation:
+\begin{equation}
+	H(q^i, \frac{\partial S}{\partial q^j}, t) + \frac{\partial S}{\partial t} = 0
+\end{equation}
+For systems of constant energy with separable coordinates, we can look for solutions of the form:
+\begin{equation}
+	S(q^i, \alpha_j, t) = \sum_i W_i(q^j, \alpha_k) - Et
+\end{equation}
 
 \end{document}
 \end{verbatim}
