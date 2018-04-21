@@ -3,8 +3,35 @@
 \usepackage{calc}
 \usepackage{ifthen}
 \usepackage{amsmath}
+\usepackage{tikz}
 \usepackage[landscape]{geometry}
 \usepackage{hyperref}
+\usepackage{caption}
+\captionsetup{
+   font=small,
+   labelfont=bf,
+   tableposition=top
+}
+\usetikzlibrary{decorations.markings}
+\tikzset{
+    set arrow inside/.code={\pgfqkeys{/tikz/arrow inside}{#1}},
+    set arrow inside={end/.initial=>, opt/.initial=},
+    /pgf/decoration/Mark/.style={
+        mark/.expanded=at position #1 with
+        {
+            \noexpand\arrow[\pgfkeysvalueof{/tikz/arrow inside/opt}]{\pgfkeysvalueof{/tikz/arrow inside/end}}
+        }
+    },
+    arrow inside/.style 2 args={
+        set arrow inside={#1},
+        postaction={
+            decorate,decoration={
+                markings,Mark/.list={#2}
+            }
+        }
+    },
+}
+
 
 % To make this come out properly in landscape mode, do one of the following
 % 1.
@@ -168,7 +195,7 @@ Equating the coefficients of the differentials, we get Hamilton's equations of m
 		\end{pmatrix} = 
 		\begin{pmatrix}
 			\nabla_\mathbf{p}H \\ 
-		-\nabla_\mathbf{q}H}
+		-\nabla_\mathbf{q}H
 		\end{pmatrix}\mathrm{\ \ \ and\ \ \ } \frac{\partial H}{\partial t} = -\frac{\partial L}{\partial t}
 \end{equation}
 
@@ -188,11 +215,142 @@ The density $\rho$ obeys the equation:
 \begin{equation}
 	\frac{d\rho}{dt} = \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) = 0
 \end{equation}
+The virial theorem tells us that when averaged over time:
+\begin{equation}
+	\overline{\mathbf{p}\cdot\frac{\partial H}{\partial \mathbf{p}}} = \overline{\mathbf{q}\cdot \frac{\partial H}{\partial \mathbf{q}}}
+\end{equation}
+\section{Qualitative Dynamics}
+Have systems described by a velocity $\mathbf {\dot r}$. These systems have fixed points at $\mathbf{\dot r}=\mathbf {0}$, which we call $\mathbf{r^*}$.
+
+We can expand linearly around these fixed points to find the behaviour of the system:
+\begin{equation}
+\dot r^i(\mathbf{r^*}+\delta\mathbf{r}) \approx \dot r^i(\mathbf{r^*}) + \left.\frac{\partial \dot r^i}{\partial x^j}\right|_{\mathbf{r^*}} \delta r^j = A^i_j \delta r^j 
+\end{equation}
+Where $x^i$ are the coordinates, and the matrix $A^i_j$ is the jacobian of the velocity vector.
+
+We can then look for solutions of $\delta \mathbf{\dot r}(t)=\mathbf{A}\delta\mathbf{r}$:
+\begin{equation}
+	\lambda we^{\lambda t} = \mathbf{A}\mathbf{w}e^{\mathbf{A}t}
+\end{equation}
+And we have an eigenvalue equation:
+\begin{equation}
+	\det{(\mathbf{A}-\lambda\mathbf{I})} = 0
+\end{equation}
+And can work out the eigenvectors:
+\begin{equation}
+	(\mathbf{A}-\lambda_i\mathbf{I})\mathbf{w}_i = 0
+\end{equation}
+\subsection{Eigenvalue Behaviours}
+The behaviour of 2D systems for a range of eigenvalues is illstrated next.
+
+For real and distinct eigenvalues, $\lambda_1\neq\lambda_2\neq0$, the system has the behaviours:
+\begin{center}
+\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	%\draw[smooth, samples=100, domain=0:1] plot({\x*cos(360*\x)}, {\x*sin(360*\x)});
+      \draw[smooth, samples=5, domain=0:1] plot({\x)}, {0.8*\x*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot({-\x)}, {0.8*\x*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot({\x)}, {-0.8*\x*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot({-\x)}, {-0.8*\x*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot(0, \x) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot(0, -\x) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+	\node[draw] at (0, -1.3) {$\lambda_1>\lambda_2>0$};
+\end{tikzpicture}
+\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	%\draw[smooth, samples=100, domain=0:1] plot({\x*cos(360*\x)}, {\x*sin(360*\x)});
+     \draw[smooth, samples=5, domain=1:0] plot({0.8*\x*\x}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot({0.8*\x*\x}, {-\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot({-0.8*\x*\x}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot({-0.8*\x*\x}, {-\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot(\x, 0) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot(-\x, 0) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+	\node[draw] at (0, -1.3) {$0>\lambda_1>\lambda_2$};
+\end{tikzpicture}
+\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	%\draw[smooth, samples=100, domain=0:1] plot({\x*cos(360*\x)}, {\x*sin(360*\x)});
+     \draw[smooth, samples=5, domain=0.2:1] plot({\x)}, {1/(5*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=5, domain=0.2:1] plot({-\x)}, {1/(5*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=5, domain=0.2:1] plot({\x)}, {-1/(5*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=5, domain=0.2:1] plot({-\x)}, {-1/(5*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot(\x, 0) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=0:1] plot(-\x, 0) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot(0, \x) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+      \draw[smooth, samples=5, domain=1:0] plot(0, -\x) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+	\node[draw] at (0, -1.3) {$\lambda_1>0>\lambda_2$};
+\end{tikzpicture}
+\end{center}
+An unstable repeller, a stable attractor and an unstable saddle point.
+
+For real degenerate eigenvalues, $\lambda_1=\lambda_2\neq0$:
+\begin{center}
+	\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	%\draw[smooth, samples=100, domain=0:1] plot({\x*cos(360*\x)}, {\x*sin(360*\x)});
+     \draw[smooth, samples=2, domain=0:1] plot({\x}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({\x}, {0}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({\x}, -{\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({0}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({0}, {-\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({-\x}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({-\x}, {0}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=0:1] plot({-\x}, -{\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+	\node[draw] at (0, -1.3) {$\lambda_1=\lambda_2>0$};
+	\end{tikzpicture}
+	\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	%\draw[smooth, samples=100, domain=0:1] plot({\x*cos(360*\x)}, {\x*sin(360*\x)});
+     \draw[smooth, samples=2, domain=1:0] plot({\x}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({\x}, {0}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({\x}, -{\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({0}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({0}, {-\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({-\x}, {\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({-\x}, {0}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+     \draw[smooth, samples=2, domain=1:0] plot({-\x}, -{\x}) [arrow inside={end=stealth,opt={scale=2}}{0.6}];
+	\node[draw] at (0, -1.3) {$0>\lambda_1=\lambda_2$};
+	\end{tikzpicture}
+\end{center}
+An unstable repeller and a fixed attractor.
+
+For $\mathbf{A}=\begin{pmatrix}\alpha & -\omega \\ \omega & \alpha\end{pmatrix}$, we have complex eigenvalues $\lambda_{\pm}=\alpha\pm i\omega$, which cause rotations.
+It is easier to think polar coordinates in this case, with $\delta \dot r = \alpha \delta r$ and $\dot \theta = \omega$.
+There are 3 types of fixed point in this case:
+\begin{center}
+	\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	\draw[smooth, samples=15, domain=0:1] plot({\x*cos(360*\x)}, {\x*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+	\draw[smooth, samples=15, domain=0:1] plot({-\x*cos(360*\x)}, {-\x*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+     \node[draw] at (0, -1.3) {$\alpha>0, \omega\neq0$};
+	\end{tikzpicture}
+	\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	\draw[smooth, samples=15, domain=1:0] plot({\x*cos(360*\x)}, {\x*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+	\draw[smooth, samples=15, domain=1:0] plot({-\x*cos(360*\x)}, {-\x*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+     \node[draw] at (0, -1.3) {$\alpha<0, \omega\neq0$};
+	\end{tikzpicture}
+	\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+     \draw[smooth, samples=15, domain=1:0] plot({0.8*cos(360*\x)}, {0.8*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+	\draw[smooth, samples=15, domain=1:0] plot({0.4*cos(360*\x)}, {0.4*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+     \node[draw] at (0, -1.3) {$\alpha=0, \omega\neq0$};
+	\end{tikzpicture}
+\end{center}
 \end{document}
 \end{verbatim}
 
 \rule{0.3\linewidth}{0.25pt}
 \scriptsize
+
 
 \end{multicols}
 \end{document}
