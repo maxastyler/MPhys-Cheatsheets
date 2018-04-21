@@ -345,6 +345,73 @@ There are 3 types of fixed point in this case:
      \node[draw] at (0, -1.3) {$\alpha=0, \omega\neq0$};
 	\end{tikzpicture}
 \end{center}
+
+\subsection{Limit Cycles}
+Can also have limit cycles, where instead of a fixed point, there might be a fixed trajectory that the system is attracted to, eg the circle with constant $r=R$.
+We would expand around this radius and evaluate the system there:
+\begin{center}
+	\begin{tikzpicture}
+    \draw[->] (-1,0) -- (1,0) node[right] {$\mathbf{w}_1$};
+     \draw[->] (0,-1) -- (0,1) node[above] {$\mathbf{w}_2$};
+	\draw[smooth, samples=15, domain=0:0.8] plot({\x*cos(360*\x)}, {\x*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+	\draw[smooth, samples=15, domain=0:0.8] plot({-\x*cos(360*\x)}, {-\x*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.25, 0.75}];
+     \draw[smooth, samples=15, domain=0:1] plot({0.8*cos(360*\x)}, {0.8*sin(360*\x)}) [arrow inside={end=stealth,opt={scale=2}}{0.01, 0.5}];
+	\end{tikzpicture}
+\end{center}
+\subsection{Hamiltonian Behaviours}
+For Hamiltonian systems, we have $\lambda_\pm=\pm\sqrt{-|\mathbf{A}|}$, and so there are only \textbf{elliptic} fixed points for $|\mathbf{A}|>0$ and \textbf{hyperbolic} fixed points for $|\mathbf{A}|<0$.
+
+\section{Poisson Bracket}
+The poisson bracket of two functions $f$ and $g$ is defined in a coordinate system with positions and momenta $q^i, p_j$ as:
+\begin{equation}	
+	\left\{f, g\right\}_{p, q} = \left(\frac{\partial f}{\partial q^i} \frac{\partial g}{\partial p_i}- \frac{\partial f}{\partial p_i} \frac{\partial g}{\partial q^i}\right)
+\end{equation}
+
+We have the equation of motion of an observable $A(q^i, p_j, t)$:
+\begin{equation}
+	\frac{d A}{dt} = \left\{A, H\right\} + \frac{\partial A}{\partial t}
+\end{equation}
+Hamilton's equations of motion can be written:
+\begin{align}
+	\dot q^i &= \left\{q^i, H\right\} & \dot p_j &= \left\{p_j, H\right\}
+\end{align}
+If A is a constant of the motion:
+\begin{align}
+	\frac{d A}{dt}&=0,&\mathrm{then,} &&\left\{A, H\right\} &=\frac{\partial A}{\partial t} 
+\end{align}
+If $u$ and $v$ are constants of motion, then $\left\{u, v\right\}$ is a constant of motion too.
+\section{Canonical Transformations}
+Canonical transformations are a transformation of the coordinates $\mathbf{q}, \mathbf{p}, H \rightarrow \mathbf{Q}(\mathbf{q}, \mathbf{p}, t), \mathbf{P}(\mathbf{q}, \mathbf{p}, t), K$ that satisfies:
+\begin{align}
+	\mathbf{\dot Q}&=\frac{\partial K}{\partial \mathbf{\dot{P}}} & \mathbf{\dot P}&=-\frac{\partial K}{\partial \mathbf{\dot Q}}
+\end{align}
+Using the fact that the Euler-Lagrange equations are invariant under a total time derivative added to the Lagrangian, we find a generating function:
+\begin{equation}
+	\mathbf{p}\cdot\mathbf{\dot q}-H-(\mathbf{P}\cdot\mathbf{\dot Q}-K) = \frac{dF_1(\mathbf{q}, \mathbf{Q}, t)}{dt}
+\label{eq:hamiltonian_kamiltonian}
+\end{equation}
+We can multiply equation \ref{eq:hamiltonian_kamiltonian} by $dt$ and look at the differential form of $F_1$ to see how to get $\mathbf{p}, \mathbf{P}$ from it:
+\begin{align}
+	dF_1 &= \mathbf{p}\cdot d\mathbf{q} - \mathbf{P}\cdot d\mathbf{Q} -(H-K)dt \\
+	dF_1 &= \frac{\partial F_1}{\partial \mathbf{q}}\cdot d\mathbf{q} + \frac{\partial F_1}{\partial \mathbf{Q}}\cdot d\mathbf{Q} + \frac{\partial F_1}{\partial t}dt
+\end{align}
+Equating the coefficients:
+\begin{align}
+	\mathbf{p} &= \frac{\partial F_1}{\partial \mathbf{q}} & 
+	\mathbf{P} &= -\frac{\partial F_1}{\partial \mathbf{Q}} &
+	K &= H + \frac{\partial F_1}{\partial t}
+\end{align}
+
+If we have two sets of coordinates: $\eta^i = (q^j, p^k)$ and $\zeta^i = (Q^j, P^k)$, then the transformation between them is canonical if and only if:
+\begin{equation}
+	\left\{\zeta^i, \zeta^j\right\}_{\eta} = 
+	\begin{pmatrix}
+		\mathbf{I} & \mathbf{0} \\
+		\mathbf{0} & -\mathbf{I} 
+	\end{pmatrix} = J^{ij}
+\end{equation}
+Where the $\mathbf{I}$ are block identity matrices.
+
 \end{document}
 \end{verbatim}
 
