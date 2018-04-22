@@ -505,9 +505,10 @@ We first find solutions to the unperturbed Hamiltonian $H_0$, and the transforme
 We can then find the progressively higher order corrections with the recursive equations:
 
 \begin{align}
-	\dot{\vec\beta}_n &=\frac{\partial H_1}{\vec \alpha_{n-1}} \\
-	\dot{\vec\alpha}_n &=-\frac{\partial H_1}{\vec \beta_{n-1}}
+	\dot{\vec\beta}_n &=\frac{\partial H_1(\vec \beta_{n-1}, \vec \alpha_{n-1}, t)}{\vec \alpha_{n-1}} \\
+	\dot{\vec\alpha}_n &=-\frac{\partial H_1(\vec \beta_{n-1}, \vec \alpha_{n-1}, t)}{\vec \beta_{n-1}}
 \end{align}
+Where the $(n-1^{th})$ term contains all terms of lower order.
 
 
 \end{document}
