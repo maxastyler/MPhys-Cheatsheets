@@ -481,10 +481,35 @@ If a set of constants of motion, $\mathcal{C}=\{I_i(q, p)\}$, all mutually commu
 \subsection{Liouville's Theorem on Integrability}
 If the phase space of some Hamiltonian with $f$ degrees of freedom is bounded, and there are $f$ constants of motion $\alpha_i$ in involution, then the motion in the new coordinates $\beta^i$ has constant velocity $\dot\beta^i=\frac{\partial H(\vec\alpha)}{\partial \alpha_i}=\omega^i$, and the system evolves on $f$-dimensional tori in the new coordinates.
 \subsection{Action-Angle Coordinates}
-Can define an Action variable $J_i$ for each of the coordinates $q_i$:
+Can define an action and angle variable $J_i, \theta_i$ for each of the coordinates $q_i$ of a time-independent Hamiltonian:
 \begin{equation}
 	J_i = \frac{1}{2\pi}\oint_{\mathrm{cycle}}p_idq_i
 \end{equation}
+Since the original Hamiltonian was time-independent, the new Hamiltonian has the same numerical value, with the new coordinates $H(\vec \theta, \vec J)$. 
+Since $\vec J$ is constant then the new Hamiltonian is a function of $\vec J$ only:
+\begin{equation}
+	\frac{d J_i}{dt} = 0 = \frac{\partial H}{\partial \theta_i}
+\end{equation}
+And the frequencies of the angles are:
+\begin{equation}
+	\frac{d\theta^i}{dt} = \omega^i = \frac{\partial H}{\partial J_i}
+\end{equation}
+Over one cycle, the angle changes by $2\pi$:
+\begin{equation}
+	\Delta \theta^i = \oint \frac{\partial \theta^i}{\partial q^j}dq^j = \oint\frac{\partial W}{\partial q^j\partial J_i}dq^j=\frac{\partial}{\partial J_i}\oint p^jdq^j=2\pi
+\end{equation}
+
+\section{Canonical Perturbation Theory}
+Look at perturbations to the Hamiltonian of the form $H=H_0+\epsilon H_1$. 
+We first find solutions to the unperturbed Hamiltonian $H_0$, and the transformed variables $\vec \alpha_0, \vec \beta_0$. 
+We can then find the progressively higher order corrections with the recursive equations:
+
+\begin{align}
+	\dot{\vec\beta}_n &=\frac{\partial H_1}{\vec \alpha_{n-1}} \\
+	\dot{\vec\alpha}_n &=-\frac{\partial H_1}{\vec \beta_{n-1}}
+\end{align}
+
+
 \end{document}
 
 \end{verbatim}
