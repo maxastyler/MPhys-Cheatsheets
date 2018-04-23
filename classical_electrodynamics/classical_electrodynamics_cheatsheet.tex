@@ -6,6 +6,7 @@
 \usepackage{tikz}
 \usepackage[landscape]{geometry}
 \usepackage{hyperref}
+\usepackage{bm}
 \usepackage{caption}
 \captionsetup{
    font=small,
@@ -124,7 +125,79 @@
 \begin{center}
      \Large{Classical Electrodynamics Cheat Sheet} \\
 \end{center}
+\section{Maxwell's Equations}
+\begin{align*}
+	\underline \nabla \cdot \underline E &= \rho & \underline \nabla \cdot \underline B &= 0 \\
+	\underline \nabla \times \underline E &= -\frac{1}{c}\frac{\partial \underline B}{\partial t} &
+	\underline \nabla \times \underline B &= \frac{1}{c} \underline J + \frac{1}{c}\frac{\partial \underline E}{\partial t}
+\end{align*}
+With $\underline J=\rho \underline v$, the current density.
+The force density is 
+\begin{align*}
+	\underline f = \rho \underline E + \frac{1}{c}\underline J \times \underline B
+\end{align*}
+Charge conservation is given by:
+\begin{equation*}
+	\frac{\partial \rho}{\partial t} + \underline \nabla \cdot \underline J = 0
+\end{equation*}
+And energy conservation by:
+\begin{equation*}
+	\frac{\partial (u+w)}{\partial t} + \underline \nabla \cdot \underline S = 0
+\end{equation*}
+Where $u=\frac{1}{2}(|\underline E|^2 + |\underline B|^2)$ is the electromagnetic charge density, $w=\int \underline f \cdot d\underline r$ is the work density and $\underline S=c\underline E\times\underline B$ is the Poynting vector, the flow of energy per unit time per unit area.
 
+We can write the electric and magnetic fields in terms of a scalar potential and vector potential, $\phi, \underline A$.
+
+\begin{align}
+	\underline E &= -\underline\nabla\phi - \frac{1}{c}\frac{\partial \underline A}{\partial t} & \underline B &= \underline \nabla \times \underline A
+\end{align}
+
+These potentials are invariant up to a total divergence of a function $\chi$:
+\begin{align}
+	\phi &\rightarrow \phi-\frac{1}{c}\frac{\partial \chi}{\partial t} & \underline A &\rightarrow \underline A + \underline\nabla\chi
+\end{align}
+\section{Special Relativity}
+In special relativity, there are 4-vectors and 4-vector duals, with bases:
+\begin{align*}
+	\bm{e}_{\mu}&=\frac{\partial}{\partial x^{\mu}} & \mathrm{and} && \bm{e}^{\nu}&=dx^{\nu}
+\end{align*}
+The bases have the property:
+\begin{align*}
+	\bm{e}_{\mu}(\bm{e}^{\nu}) = \bm{e}^{\nu}(\bm{e}_{\mu})= \delta_{\mu}^{\nu}
+\end{align*}
+
+There is a metric tensor $\bm{g}=g_{ij}\bm{e}^i\otimes\bm{e}^j$ which takes a 4-vector into its dual. In special relativity, the metric tensor is:
+\begin{align*}
+	\eta_{ij}=
+	\begin{pmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & -1 & 0 & 0 \\
+		0 & 0 & -1 & 0 \\
+		0 & 0 & 0 & -1
+	\end{pmatrix}
+\end{align*}
+Distances in special relativity are given by:
+\begin{align}
+	ds^2=\eta_{ij}dx^idx^j
+\end{align}
+Where $dx^i = (cdt, dx, dy, dz)$ in pseudo-euclidean coordinates.
+We can consider transformations which leave the length $ds$ invariant, Lorentz transformations:
+\begin{align}
+	\bm{\Lambda}\bm{\eta}\bm{\Lambda}^T=\bm{\eta}
+\end{align}
+In component form, a Lorentz boost in the $x$-direction can be written:
+\begin{align}
+	\Lambda^i{}_j =\begin{pmatrix}
+		\gamma & -\gamma\beta & 0 & 0 \\
+		-\gamma\beta & \gamma & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1 \\
+	\end{pmatrix}
+\end{align}
+The totally anti-symmetric tensor is given by:
+\begin{align}
+
+\end{align}
 
 \end{document}
 
